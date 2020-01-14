@@ -1,0 +1,19 @@
+<view class='downView'>
+  <text class='winNum'>你已经获胜了<text class='redText'>{{winCount}}</text>次</text>
+
+  <view class='imageView'>
+    <image class="imageClassL" src="{{imageAISrc}}"></image>
+    <text class='winOrLose'>{{winOrLose}}</text>
+    <image class="imageClassR" src="{{imageSelfSrc}}"></image>
+  </view>
+
+  <view class='optionView'>
+    <text class="tipsTxt">出拳！！！</text>
+    <view class="iconView">
+      <image id="{{index}}" wx:for-key="index" class="{{index == selectIndex ? 'selectClass':'guessImage'}}" wx:for="{{guessIcons}}" wx:for-item="item" src="{{item}}" bindtap="selectIcon">
+    </image>
+    </view>
+    <button class="submitBtn" bindtap="comfireTurn">{{buttonText}}</button>
+    
+  </view>
+</view>

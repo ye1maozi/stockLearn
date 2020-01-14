@@ -1,0 +1,7 @@
+<!--pages/hello/hello.wxml-->
+<text>pages/hello/hello.wxml</text>
+<view wx:for="{{myArray}}" wx:key="index">
+  <inputDataCom  inputData='{{index}}'>
+    this is custom 
+  </inputDataCom>
+</view>

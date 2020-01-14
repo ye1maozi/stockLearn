@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "inputDataCom":"../showdata/showdata"
+  }
+}

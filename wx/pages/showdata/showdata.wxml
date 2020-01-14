@@ -1,0 +1,7 @@
+<!--pages/showdata/showdata.wxml-->
+
+<view class="subView">
+  <text>{{inputData}}</text>
+</view>
+<slot></slot>
+

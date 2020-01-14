@@ -1,0 +1,8 @@
+/* pages/showdata/showdata.wxss */
+
+:host {
+  color:black
+}
+.subView {
+  color: red;
+}

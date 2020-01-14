@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/stock/stock",
+    "pages/guess/guess",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/hello/hello"
+    
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ee0000",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "趋势投资",
+    "backgroundColor": "#eeeeee",
+    "backgroundTextStyle": "light"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

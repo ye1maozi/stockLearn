@@ -1,0 +1,50 @@
+.mainClass {
+  width: 100%;
+  height: 2180rpx;
+  background: antiquewhite;
+  text-align: center;
+}
+
+.topBar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  white-space: nowrap;
+  z-index:5555
+}
+.section {
+  top: 2rpx;
+  height: 4orpx;
+  background: white;
+  display: inline-block;
+  position: fixed;
+  left: 31%;
+}
+
+.dataSection {
+  width: 100%;
+  background: white;
+  margin-top: 3px;
+
+}
+.startClass {
+  width: 50%;
+ display: inline-block;
+ border-right:crimson 1rpx solid;
+}
+.endClass {
+  width: 50%;
+  display: inline-block;
+}
+
+.chart1 {
+  width: 100%;
+  background: wheat;
+  margin-top: 60px;
+  height: 800rpx;
+} 
+
+.canvas {
+  width: 100%;
+  height: 400px;
+}

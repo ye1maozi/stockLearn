@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "selectBox" : "/components/select/select",
+    "ec-canvas":"/ec-canvas/ec-canvas"
+  }
+}

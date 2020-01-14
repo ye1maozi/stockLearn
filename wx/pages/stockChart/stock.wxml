@@ -1,0 +1,37 @@
+<view class="mainClass">
+  <view class="topBar">
+    <selectBox id="selectBox" prop-array="{{selectArray}}" bind:changeSelectIndex="onChangeSelect"></selectBox>
+    <view class="section">
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" range-key="name"  value="{{multiIndex}}" range="{{multiArray}}">
+          <view class="picker">
+          ma:{{multiArray[0][multiIndex[0]].name}},购买:{{multiArray[1][multiIndex[1]].name}},出售:{{multiArray[2][multiIndex[2]].name}},手续:{{multiArray[3][multiIndex[3]].name}}
+          </view>
+        </picker>
+    </view>
+    <view class="dataSection">
+      <view class="startClass">
+       <picker mode="date" value="{{startDate}}" start="2015-09-01" end="{{endDate}}" bindchange="bindDateChangeS">
+        <view class="picker">
+          开始日期: {{startDate}}
+        </view>
+      </picker>
+      </view>
+      <view class="endClass">
+       <picker mode="date" value="{{endDate}}" start="{{startDate}}" end="2017-09-01" bindchange="bindDateChangeE">
+        <view class="picker">
+          结束日期: {{endDate}}
+        </view>
+      </picker>
+      </view>
+     
+     
+    </view>
+  </view>
+
+<view class="chart1">
+  <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas"></canvas>
+</view>
+
+</view>
+
+

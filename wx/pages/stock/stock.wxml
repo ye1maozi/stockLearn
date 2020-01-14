@@ -1,0 +1,165 @@
+<wxs module="astFilter" src="../../utils/filterUtil.wxs"></wxs>
+<view class="mainClass">
+  <view class="topBar">
+    <selectBox id="selectBox" prop-array="{{selectArray}}" bind:changeSelectIndex="onChangeSelect"></selectBox>
+    <view class="section">
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" range-key="name"  value="{{multiIndex}}" range="{{multiArray}}">
+          <view class="picker">
+          ma:{{multiArray[0][multiIndex[0]].name}},购买:{{multiArray[1][multiIndex[1]].name}},出售:{{multiArray[2][multiIndex[2]].name}},手续:{{multiArray[3][multiIndex[3]].name}}
+          </view>
+        </picker>
+    </view>
+    <view class="dataSection">
+      <view class="startClass">
+       <picker mode="date" value="{{startDate}}" start="{{indexStartDate}}" end="{{endDate}}" bindchange="bindDateChangeS">
+        <view class="picker">
+          开始日期: {{startDate}}
+        </view>
+      </picker>
+      </view>
+      <view class="endClass">
+       <picker mode="date" value="{{endDate}}" start="{{startDate}}" end="{{indexEndDate}}" bindchange="bindDateChangeE">
+        <view class="picker">
+          结束日期: {{endDate}}
+        </view>
+      </picker>
+      </view>
+     
+     
+    </view>
+  </view>
+
+<view class="chart1">
+ <ec-canvas id="chart1" canvas-id="chart1" ec="{{ ecData }}"  ></ec-canvas>
+</view>
+
+<view class="getMomey">
+  <text>收益一览</text>
+  <view class="table">
+    <view class="tr bg-w">
+      <view class="th">投资类型</view>
+      <view class="th">投资时长</view>
+      <view class="th ">1000元收益</view>
+      <view class="th ">总收益率</view>
+       <view class="th ">年化收益率</view>
+    </view>
+    <view class="tr bg-w" >
+      <view class="td">指数投资</view>
+      <view class="td">{{astFilter.formatNumberFilter(years,2)}}</view>
+      <view class="td ">{{astFilter.formatNumberFilter((indexIncomeTotal+1)*1000,2)}}</view>
+      <view class="td ">{{astFilter.formatNumberFilter(indexIncomeTotal*100,2)}}</view>
+      <view class="td ">{{astFilter.formatNumberFilter(indexIncomeAnnual*100,2)}}</view>
+    </view>
+     <view class="tr bg-g" >
+        <view class="td">趋势投资</view>
+        <view class="td">{{astFilter.formatNumberFilter(years,2)}}</view>
+        <view class="td ">{{astFilter.formatNumberFilter((trendIncomeTotal+1)*1000,2)}}</view>
+        <view class="td ">{{astFilter.formatNumberFilter(trendIncomeTotal*100,2)}}</view>
+        <view class="td ">{{astFilter.formatNumberFilter(trendIncomeAnnual*100,2)}}</view>
+    </view>
+     <view class="tr bg-w" >
+        <view class="td">相对收益</view>
+        <view class="td">n/a</view>
+        <view class="td ">{{astFilter.formatNumberFilter((trendIncomeTotal+1 - indexIncomeTotal)*1000,2)}}</view>
+        <view class="td ">{{astFilter.formatNumberFilter((trendIncomeTotal -indexIncomeTotal)*100,2)}}</view>
+        <view class="td ">{{astFilter.formatNumberFilter((trendIncomeAnnual - indexIncomeAnnual)*100,2)}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="tradeCount">
+    <text>交易统计</text>
+    <view class="table">
+      <view class="th width100">
+        趋势投资盈亏统计
+      </view>
+      <view class="tr bg-g ">
+        <view class="td">总共交易次数</view>
+        <view class="td">{{winCount+lossCount}}</view>
+      </view>
+      <view class="tr bg-w" >
+        <view class="td">盈利交易次数</view>
+        <view class="td">{{winCount}}</view>
+      </view>
+      <view class="tr bg-g" >
+          <view class="td">平均盈利比率</view>
+          <view class="td">{{astFilter.formatNumberFilter(avgWinRate*100,2)}}</view>
+      </view>
+      <view class="tr bg-w" >
+        <view class="td">亏损交易次数</view>
+        <view class="td">{{lossCount}}</view>
+      </view>
+      <view class="tr bg-g" >
+          <view class="td">平均亏损比率</view>
+          <view class="td">{{astFilter.formatNumberFilter(avgLossRate*100,2)}}</view>
+      </view>
+      <view class="tr bg-w" >
+        <view class="tr">胜率</view>
+        <view class="tr">{{astFilter.formatNumberFilter((winCount/(winCount+lossCount))*100,2)}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="incomeTable">
+  <text>收益分布对比表</text>
+    <view class="table">
+       <view class="tr bg-w">
+        <view class="th">年份</view>
+        <view class="th">指数收益</view>
+        <view class="th ">趋势投资收益</view>
+      </view>
+      <block wx:for="{{annualProfits}}" wx:for-key='index' wx:for-item="item">
+        <view class="tr {{index%2==0?'bg-w':'bg-g'}}" >
+            <view class="td">{{item.year}}</view>
+            <view class="td {{item.indexIncome> 0?'red':'green'}}">{{astFilter.formatNumberFilter(item.indexIncome*100,2)}}</view>
+             <view class="td {{item.trendIncome> 0?'red':'green'}}">{{astFilter.formatNumberFilter(item.trendIncome*100,2)}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+
+  <view class="chart2">
+    <ec-canvas id="chart2" canvas-id="chart2" ec="{{ ecData2 }}"  ></ec-canvas>
+    </view>
+
+  <view class="trade">
+     <text>交易明细</text>
+      <view class="table">
+        <view class="tr bg-w">
+          <view class="th">盈/亏</view>
+          <view class="th">购买日期</view>
+          <view class="th ">购买盘点</view>
+          <view class="th ">出售日期</view>
+          <view class="th ">出售盘点</view>
+           <view class="th ">盈亏比率</view>
+           <view class="th ">1000元收益</view>
+        </view>
+        <block wx:for="{{trades}}" wx:for-key='index' wx:for-item="item">
+          <view class="tr {{index%2==0?'bg-w':'bg-g'}}" >
+              <block>
+                <view class="td redBlock" wx:if="{{item.sellClosePoint > item.buyClosePoint}}">盈利</view>
+                 <view class="td greenBlock" wx:if="{{item.sellClosePoint <= item.buyClosePoint}}">亏损</view>
+             </block>
+              <view class="td smallText">{{item.buyDate}}</view>
+              <view class="td">{{item.buyClosePoint}}</view>
+               <view class="td smallText">{{item.sellDate}}</view>
+            <block>
+               <view class="td" wx:if="{{item.sellClosePoint == 0}}">n/a</view>
+                 <view class="td" wx:if="{{item.sellClosePoint!=0}}">{{item.sellClosePoint}}</view>
+            </block>
+            <block>
+               <view class="td" wx:if="{{item.sellClosePoint == 0}}">n/a</view>
+                <view class="td {{item.sellClosePoint>item.buyClosePoint?'redBlock':'greenBlock'}}" wx:if="{{item.sellClosePoint!=0}}">{{astFilter.formatNumberFilter((item.sellClosePoint-item.buyClosePoint)*100/item.buyClosePoint,2)}}</view>
+            </block>
+           <block>
+               <view class="td" wx:if="{{item.sellClosePoint == 0}}">n/a</view>
+                 <view class="td" wx:if="{{item.sellClosePoint!=0}}">{{astFilter.formatNumberFilter(item.rate*1000,2)}}</view>
+            </block>
+            
+          </view>
+        </block>
+      </view>
+  </view>
+</view>
+
+
